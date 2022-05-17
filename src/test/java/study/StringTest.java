@@ -1,6 +1,8 @@
 package study;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -51,14 +53,15 @@ public class StringTest {
 
     }
 
-    @Test
-    void calculateString() {
-        String value = "2 + 3 * 4 / 2";
-        String[] splitStr = getSplitStr(value);
+    @ParameterizedTest
+    @CsvSource(value = {"2 + 3 * 4 / 2:10", "1 + 1 * 2 / 2:2"}, delimiter = ':')
+    void calculateString(String input, String expected) {
+        String[] splitStr = getSplitStr(input);
+        int expectedNumber = Integer.parseInt(expected);
 
         int result = calculate(splitStr);
 
-        assertThat(result).isEqualTo(10);
+        assertThat(result).isEqualTo(expectedNumber);
     }
 
     int calculate(String[] splitStr) {
