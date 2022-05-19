@@ -21,7 +21,8 @@ class RandomNumberGeneratorTest {
         RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
 
         int randomNumber = randomNumberGenerator.createRandomNumber();
-        assertThat(randomNumber).isGreaterThanOrEqualTo(Ball.MIN_NO).isLessThanOrEqualTo(Ball.MAX_NO);
+        assertThat(randomNumber).isGreaterThanOrEqualTo(Ball.MIN_NO)
+                                .isLessThanOrEqualTo(Ball.MAX_NO);
     }
 
     @Test

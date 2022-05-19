@@ -32,18 +32,26 @@ public class PlayResult {
 
     @Override
     public String toString() {
-        if (this.ball == 0 && this.strike == 0) {
+        if (isZeroBall() && isZeroStrike()) {
             return "낫싱";
         }
 
-        if (this.ball == 0) {
+        if (isZeroBall()) {
             return String.format("%d%s", this.strike, "스트라이크");
         }
 
-        if (this.strike == 0) {
+        if (isZeroStrike()) {
             return String.format("%d%s", this.ball, "볼");
         }
 
         return String.format("%d%s %d%s", this.ball, "볼", this.strike, "스트라이크");
+    }
+
+    private boolean isZeroStrike() {
+        return this.strike == 0;
+    }
+
+    private boolean isZeroBall() {
+        return this.ball == 0;
     }
 }
