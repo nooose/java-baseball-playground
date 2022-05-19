@@ -10,6 +10,10 @@ import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
+        startGame();
+    }
+
+    public static void startGame() {
         String resultMessage = "";
         RandomNumberGenerator generator = new RandomNumberGenerator();
         Balls computerBalls = new Balls(generator.createRandomNumbers());
@@ -26,7 +30,6 @@ public class Application {
         }
         printEndMessage();
     }
-
     public static List<Integer> askNumbers() {
         System.out.print("숫자를 입력해주세요 : ");
         Scanner scanner = new Scanner(System.in);
@@ -40,19 +43,14 @@ public class Application {
         return numbers;
     }
 
-
-
-
-
-
-
-
-
-
-
-
     private static void printEndMessage() {
         System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료\n" +
                 "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
+
+        if (input.equals("1")) {
+            startGame();
+        }
     }
 }
