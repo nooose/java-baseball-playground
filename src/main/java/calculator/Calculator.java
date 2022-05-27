@@ -10,6 +10,8 @@ public class Calculator {
 
     private String operatorHolder;
     private int operandsHolder;
+
+
     private final List<InputValue> values = new ArrayList<>();
 
     public Calculator() {
@@ -20,6 +22,10 @@ public class Calculator {
         values.clear();
         operandsHolder = DEFAULT_OPERANDS;
         operatorHolder = DEFAULT_OPERATOR;
+    }
+
+    public List<InputValue> getValues() {
+        return values;
     }
 
     public void input(String input) {

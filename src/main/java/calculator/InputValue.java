@@ -1,7 +1,11 @@
 package calculator;
 
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
+
 public class InputValue {
-    private static final String[] AVAILABE_OPERATORS = {"+", "-", "*", "/"};
+    private static final String[] OPERATORS = {"+", "-", "*", "/"};
 
     private InputType type;
     private final String value;
@@ -26,14 +30,12 @@ public class InputValue {
         }
     }
 
-    public void isValidateOperator(String operator) {
-        for (String availalbeOperator : AVAILABE_OPERATORS) {
-            if (availalbeOperator.equals(operator)) {
-                return;
-            }
-        }
+    private void isValidateOperator(String operator) {
+        Optional<String> availableOperator = Arrays.stream(OPERATORS)
+                .filter(op -> op.equals(operator))
+                .findAny();
 
-        throw new IllegalArgumentException("\"" + operator + "\"" + "는 지원하지 않는 연산자입니다.");
+        availableOperator.orElseThrow(() -> new IllegalArgumentException("\"" + operator + "\"" + "는 지원하지 않는 연산자입니다."));
     }
 
 
@@ -46,4 +48,16 @@ public class InputValue {
         return type == InputType.OPERATOR;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof InputValue)) return false;
+        InputValue that = (InputValue) o;
+        return type == that.type && Objects.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, value);
+    }
 }

@@ -4,7 +4,10 @@ import calculator.Calculator;
 import calculator.InputValue;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class CalculatorTest {
     @Test
@@ -17,23 +20,45 @@ public class CalculatorTest {
 
     @Test
     void 타입확인_숫자() {
-        InputValue value = new InputValue("2");
-
-        assertThat(value.isNumber()).isTrue();
+        assertThat(new InputValue("2").isNumber()).isTrue();
+        assertThat(new InputValue("-10").isNumber()).isTrue();
     }
 
     @Test
     void 타입확인_연산자() {
-        InputValue value = new InputValue("+");
+        assertThat(new InputValue("+").isOperator()).isTrue();
+        assertThat(new InputValue("-").isOperator()).isTrue();
+        assertThat(new InputValue("*").isOperator()).isTrue();
+        assertThat(new InputValue("/").isOperator()).isTrue();
 
-        assertThat(value.isOperator()).isTrue();
+        assertThatThrownBy(() -> new InputValue("#")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new InputValue("**")).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    void 연산자_확인() {
-        InputValue value = new InputValue("1");
+    void equalsTest() {
+        InputValue inputValue = new InputValue("5");
 
+        assertThat(inputValue).isEqualTo(new InputValue("5"));
     }
+
+    @Test
+    void inputTest() {
+        Calculator calculator = new Calculator();
+        calculator.input("2 + 3 * 4 / 2");
+
+        List<InputValue> inputValues = calculator.getValues();
+
+        assertThat(inputValues.size()).isEqualTo(7);
+        assertThat(inputValues).containsExactly(new InputValue("2"),
+                new InputValue("+"),
+                new InputValue("3"),
+                new InputValue("*"),
+                new InputValue("4"),
+                new InputValue("/"),
+                new InputValue("2"));
+    }
+
 
     @Test
     void calculate() {
