@@ -7,6 +7,7 @@ public class StringCalculator implements Calculator {
 
     private static final int DEFAULT_OPERANDS = 0;
     private static final String DEFAULT_OPERATOR = "+";
+    public static final String BLANK = " ";
 
     private String operatorHolder;
     private int operandsHolder;
@@ -32,7 +33,7 @@ public class StringCalculator implements Calculator {
     public void input(String input) {
         init();
 
-        String[] values = input.split(" ");
+        String[] values = input.split(BLANK);
         for (String value : values) {
             this.values.add(new InputValue(value));
         }

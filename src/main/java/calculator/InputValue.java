@@ -10,7 +10,6 @@ public class InputValue {
     private InputType type;
     private final String value;
 
-
     public InputValue(String value) {
         setType(value);
         this.value = value;
@@ -37,8 +36,6 @@ public class InputValue {
 
         availableOperator.orElseThrow(() -> new IllegalArgumentException("\"" + operator + "\"" + "는 지원하지 않는 연산자입니다."));
     }
-
-
 
     public boolean isNumber() {
         return type == InputType.NUMBER;
