@@ -1,6 +1,6 @@
 package study;
 
-import calculator.Calculator;
+import calculator.StringCalculator;
 import calculator.InputValue;
 import org.junit.jupiter.api.Test;
 
@@ -44,7 +44,7 @@ public class CalculatorTest {
 
     @Test
     void inputTest() {
-        Calculator calculator = new Calculator();
+        StringCalculator calculator = new StringCalculator();
         calculator.input("2 + 3 * 4 / 2");
 
         List<InputValue> inputValues = calculator.getValues();
@@ -62,7 +62,7 @@ public class CalculatorTest {
 
     @Test
     void calculate() {
-        Calculator calculator = new Calculator();
+        StringCalculator calculator = new StringCalculator();
 
         calculator.input("2 + 3 * 4 / 2");
         assertThat(calculator.calculate()).isEqualTo(10);
