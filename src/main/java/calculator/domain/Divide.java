@@ -1,4 +1,4 @@
-package calculator;
+package calculator.domain;
 
 public class Divide extends Operator {
     public Divide(String value) {

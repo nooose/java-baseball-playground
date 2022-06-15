@@ -1,4 +1,4 @@
-package calculator;
+package calculator.domain;
 
 public class Plus extends Operator {
     public Plus(String value) {

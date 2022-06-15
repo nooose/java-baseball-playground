@@ -1,4 +1,4 @@
-package calculator;
+package calculator.domain;
 
 public class Number extends InputValue {
     public Number(String value) {

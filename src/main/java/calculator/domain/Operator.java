@@ -1,4 +1,4 @@
-package calculator;
+package calculator.domain;
 
 public abstract class Operator extends InputValue {
 

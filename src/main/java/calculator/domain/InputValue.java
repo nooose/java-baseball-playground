@@ -1,8 +1,6 @@
-package calculator;
+package calculator.domain;
 
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.Optional;
 
 public abstract class InputValue {
     private final String value;

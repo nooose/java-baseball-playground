@@ -1,7 +1,7 @@
 package study;
 
-import calculator.InputValue;
-import calculator.InputValueFactory;
+import calculator.domain.InputValue;
+import calculator.domain.InputValueFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
