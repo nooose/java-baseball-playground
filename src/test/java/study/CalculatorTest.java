@@ -1,5 +1,6 @@
 package study;
 
+import calculator.InputValueFactory;
 import calculator.StringCalculator;
 import calculator.InputValue;
 import org.junit.jupiter.api.AfterEach;
@@ -30,23 +31,6 @@ public class CalculatorTest {
         String[] expectedValue = {"2", "+", "3", "*", "4", "/", "2"};
 
         assertThat(str.split(" ")).containsExactly(expectedValue);
-    }
-
-    @Test
-    void inputTest() {
-        String input = "2 + 3 * 4 / 2";
-        List<InputValue> expectedList = Arrays.asList(new InputValue("2"),
-                new InputValue("+"),
-                new InputValue("3"),
-                new InputValue("*"),
-                new InputValue("4"),
-                new InputValue("/"),
-                new InputValue("2"));
-
-        calculator.input(input);
-        List<InputValue> inputValues = calculator.getValues();
-
-        assertThat(inputValues).isEqualTo(expectedList);
     }
 
     @ParameterizedTest

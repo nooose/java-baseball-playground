@@ -5,15 +5,17 @@ import java.util.List;
 
 public class StringCalculator implements Calculator {
 
-    private static final int DEFAULT_OPERANDS = 0;
-    private static final String DEFAULT_OPERATOR = "+";
     public static final String BLANK = " ";
-
-    private String operatorHolder;
-    private int operandsHolder;
-
+    private static final int DEFAULT_OPERANDS = 0;
+    private static final Operator DEFAULT_OPERATOR;
 
     private final List<InputValue> values = new ArrayList<>();
+    private Operator operatorHolder;
+    private int operandsHolder;
+
+    static {
+        DEFAULT_OPERATOR = new Plus("+");
+    }
 
     public StringCalculator() {
         init();
@@ -25,21 +27,21 @@ public class StringCalculator implements Calculator {
         operatorHolder = DEFAULT_OPERATOR;
     }
 
-    public List<InputValue> getValues() {
-        return values;
-    }
-
     @Override
     public void input(String input) {
         init();
 
         String[] values = input.split(BLANK);
         for (String value : values) {
-            this.values.add(new InputValue(value));
+            this.values.add(InputValueFactory.create(value));
         }
     }
     @Override
     public int calculate() {
+        if (values.isEmpty()) {
+            throw new IllegalStateException("입력값이 없습니다.");
+        }
+
         for (InputValue value : values) {
             operate(value);
         }
@@ -48,54 +50,10 @@ public class StringCalculator implements Calculator {
     }
 
     private void operate(InputValue value) {
-        if (value.isNumber()) {
-            operate(Integer.parseInt(value.getValue()));
-        }
-
-        if (value.isOperator()) {
-            operatorHolder = value.getValue();
-        }
-    }
-
-    private void operate(int number) {
-        if (operatorHolder.equals("+")) {
-            operandsHolder = plus(operandsHolder, number);
-            return;
-        }
-
-        if (operatorHolder.equals("-")) {
-            operandsHolder = minus(operandsHolder, number);
-            return;
-        }
-
-        if (operatorHolder.equals("*")) {
-            operandsHolder = multiply(operandsHolder, number);
-            return;
-        }
-
-        if (operatorHolder.equals("/")) {
-            operandsHolder = divide(operandsHolder, number);
-        }
-    }
-
-    private int plus(int a, int b) {
-        return a + b;
-    }
-
-    private int minus(int a, int b) {
-        return a - b;
-    }
-
-    private int multiply(int a, int b) {
-        return a * b;
-    }
-
-    private int divide(int a, int b) {
         try {
-            return a / b;
-        } catch (Exception exception) {
-            System.out.println("0으로 나눌 수 없습니다.");
-            return a / b;
+            operandsHolder = operatorHolder.operate(operandsHolder, Integer.parseInt(value.getValue()));
+        } catch (IllegalStateException | NumberFormatException e) {
+            operatorHolder = (Operator) value;
         }
     }
 }
