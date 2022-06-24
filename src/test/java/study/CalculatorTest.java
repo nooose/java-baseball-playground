@@ -1,6 +1,7 @@
 package study;
 
 import calculator.domain.StringCalculator;
+import calculator.ui.InputView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class CalculatorTest {
     @ParameterizedTest
     @CsvSource(value = {"2 + 3 * 4 / 2:10", "2 + 2 * 4 / 1:16"}, delimiter = ':')
     void calculate(String input, String expected) {
-        calculator.input(input);
+        calculator.input(InputView.generateInputValues(input));
 
         assertThat(calculator.calculate()).isEqualTo(Integer.parseInt(expected));
     }

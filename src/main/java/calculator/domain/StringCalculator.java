@@ -5,11 +5,10 @@ import java.util.List;
 
 public class StringCalculator implements Calculator {
 
-    public static final String BLANK = " ";
     private static final int DEFAULT_OPERANDS = 0;
     private static final Operator DEFAULT_OPERATOR;
 
-    private final List<InputValue> values = new ArrayList<>();
+    private List<InputValue> values;
     private Operator operatorHolder;
     private int operandsHolder;
 
@@ -22,23 +21,23 @@ public class StringCalculator implements Calculator {
     }
 
     private void init() {
-        values.clear();
+        if (values != null) {
+            values.clear();
+        }
+
         operandsHolder = DEFAULT_OPERANDS;
         operatorHolder = DEFAULT_OPERATOR;
     }
 
     @Override
-    public void input(String input) {
+    public void input(List<InputValue> values) {
         init();
 
-        String[] values = input.split(BLANK);
-        for (String value : values) {
-            this.values.add(InputValueFactory.create(value));
-        }
+        this.values = values;
     }
     @Override
     public int calculate() {
-        if (values.isEmpty()) {
+        if (values == null || values.isEmpty()) {
             throw new IllegalStateException("입력값이 없습니다.");
         }
 

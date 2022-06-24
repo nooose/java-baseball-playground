@@ -11,12 +11,12 @@ public class Number extends InputValue {
     }
 
     @Override
-    int operate(int numberA, int numberB) {
-        throw new IllegalStateException("연산자가 아닙니다.");
+    public boolean isOperator() {
+        return false;
     }
 
     @Override
-    public boolean isOperator() {
-        return false;
+    int operate(int numberA, int numberB) {
+        throw new IllegalStateException("연산자가 아닙니다.");
     }
 }
