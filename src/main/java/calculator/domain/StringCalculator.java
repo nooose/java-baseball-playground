@@ -49,10 +49,11 @@ public class StringCalculator implements Calculator {
     }
 
     private void operate(InputValue value) {
-        try {
-            operandsHolder = operatorHolder.operate(operandsHolder, Integer.parseInt(value.getValue()));
-        } catch (IllegalStateException | NumberFormatException e) {
+        if (value.isOperator()) {
             operatorHolder = (Operator) value;
+            return;
         }
+
+        operandsHolder = operatorHolder.operate(operandsHolder, Integer.parseInt(value.getValue()));
     }
 }
